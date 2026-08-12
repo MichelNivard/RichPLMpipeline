@@ -1,0 +1,89 @@
+# Copy this file outside version control, fill local paths, and pass it with
+# --sources. Environment variables in ${NAME} form are expanded at runtime.
+version: 1
+sources:
+  uniprot_fasta:
+    path: ${UNIPROT_FASTA}
+    kind: file
+    version: "PIN_AN_EXACT_UNIPROTKB_RELEASE"
+    url: https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/
+    required_for: [production_data]
+  uniprot_mmseqs_db:
+    path: ${UNIPROT_MMSEQS_DB}
+    kind: mmseqs_db
+    version: "built from the UniProtKB FASTA above"
+    required_for: [production_data]
+  uniclust30_seed_db:
+    path: ${UNICLUST30_SEED_DB}
+    kind: mmseqs_db
+    version: "UniClust30 2018_08"
+    archive_sha256: c8923e6f1bf86b8f57516197f402697d3fc0882994ca053144a8284beaaa1c03
+    url: https://gwdu111.gwdg.de/~compbiol/uniclust/2018_08/
+    required_for: [production_data]
+  uniclust30_membership:
+    path: ${UNICLUST30_MEMBERSHIP}
+    kind: sqlite
+    version: "index built from UniClust30 2018_08 membership TSV"
+    required_for: [production_data]
+  uniprot_accession_index:
+    path: ${UNIPROT_ACCESSION_INDEX}
+    kind: sqlite
+    version: "index built from the selected UniProtKB MMseqs lookup"
+    required_for: [production_data]
+  afdb_foldseek:
+    path: ${AFDB_FOLDSEEK_PREFIX}
+    kind: foldseek_prefix
+    version: "AlphaFold DB/Foldseek release chosen by operator"
+    url: https://alphafold.ebi.ac.uk/download
+    required_for: [structure_targets]
+  structencoder_teacher:
+    path: ${STRUCTENCODER_CHECKPOINT}
+    kind: file
+    version: "ProteinLoss checkpoint_step69438.pt; SHA-256 required locally"
+    sha256: 342fefdee451122a3daffa8c8b101872375968da547df7f029e4330d6c6ee0e0
+    required_for: [struct_latent]
+  proteingym_metadata:
+    path: ${PROTEINGYM_METADATA}
+    kind: file
+    version: "ProteinGym v1.3 substitutions"
+    sha256: a8f498011532a74aa9fe556a50555a75e928c5837d19c06a87592ae04049b308
+    url: https://github.com/OATML-Markslab/ProteinGym/blob/144fe22b07dfaeec2b366f2346203a9838a55b4c/reference_files/DMS_substitutions.csv
+    required_for: [proteingym]
+  proteingym_bundle:
+    path: ${PROTEINGYM_BUNDLE}
+    kind: file
+    version: "ProteinGym v1.3 substitutions"
+    sha256: 3a83766254ac9ac9984ec25cb73c6e010ea4418f5e35f143933e6b6e6473b921
+    url: https://marks.hms.harvard.edu/proteingym/ProteinGym_v1.3/DMS_ProteinGym_substitutions.zip
+    required_for: [proteingym]
+  rcsb_seqres:
+    path: ${RCSB_SEQRES}
+    kind: file
+    version: "RCSB PDB sequence snapshot"
+    url: https://files.wwpdb.org/pub/pdb/derived_data/pdb_seqres.txt.gz
+    required_for: [minifold]
+  rcsb_mmcif_cache:
+    path: ${RCSB_MMCIF_CACHE}
+    kind: directory
+    version: "downloaded mmCIF files"
+    required_for: [minifold]
+  casp15_target_table:
+    path: ${CASP15_TARGET_TABLE}
+    kind: file
+    version: "CASP15 official target table snapshot"
+    url: https://predictioncenter.org/casp15/targetlist.cgi
+    required_for: [casp15]
+  casp15_mmcif_cache:
+    path: ${CASP15_MMCIF_CACHE}
+    kind: directory
+    version: "RCSB mmCIF files referenced by the CASP15 target table"
+    required_for: [casp15]
+tools:
+  mmseqs:
+    path: ${MMSEQS_BIN}
+    version_command: [version]
+    required_for: [production_data]
+  foldseek:
+    path: ${FOLDSEEK_BIN}
+    version_command: [version]
+    required_for: [structure_targets]

@@ -1,0 +1,12 @@
+objectives:
+  mlm: 1.0
+  pssm: 1.0
+  dense_mi: 1.0
+  distance: 1.0
+  contact: 1.0
+  struct_latent: 1.0
+  3di: 1.0
+loss:
+  distance_correlation_weight: 1.0
+  contact_cutoff_angstrom: 8.0
+  min_pair_separation: 6

@@ -1,0 +1,15 @@
+data:
+  threads: 16
+  mi_device: cpu
+training:
+  device: cuda
+  amp_dtype: bfloat16
+  num_workers: 8
+  batch_size: 1
+  gradient_accumulation: 16
+  checkpoint_every_steps: 1000
+  log_every_steps: 10
+validation:
+  device: cuda
+  amp_dtype: bfloat16
+  num_workers: 4

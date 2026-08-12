@@ -1,0 +1,9 @@
+model:
+  preset: 100m
+  max_len: 512
+  d_model: 768
+  layers: 16
+  heads: 12
+  feedforward: 3072
+  pair_rank: 128
+  exact_all_head_parameters: 115669163

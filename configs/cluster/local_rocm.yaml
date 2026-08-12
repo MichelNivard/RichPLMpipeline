@@ -1,0 +1,12 @@
+training:
+  device: auto
+  amp_dtype: bfloat16
+  num_workers: 0
+  batch_size: 1
+  gradient_accumulation: 1
+  checkpoint_every_steps: 1000
+  log_every_steps: 10
+validation:
+  device: auto
+  amp_dtype: bfloat16
+  num_workers: 0

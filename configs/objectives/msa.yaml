@@ -1,0 +1,4 @@
+objectives:
+  mlm: 1.0
+  pssm: 1.0
+  dense_mi: 1.0

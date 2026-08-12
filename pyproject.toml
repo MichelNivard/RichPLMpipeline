@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "proteinloss-pipeline"
+version = "0.1.0"
+description = "Portable target building, training, and validation for ProteinLoss"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+dependencies = [
+  "numpy>=2.0,<3",
+  "PyYAML>=6.0,<7",
+  "torch>=2.5,<3",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8.3,<9"]
+
+[project.scripts]
+pipeline = "proteinloss_pipeline.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/proteinloss_pipeline"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+markers = [
+  "slow: exercises full-size model allocation or training",
+  "integration: end-to-end pipeline checks",
+]
